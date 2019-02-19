@@ -1,2 +1,7 @@
 flake8
 pydocstyle
+aiohttp
+async_timeout
+asyncio
+lxml
+requests
