@@ -17,8 +17,8 @@ import time
 def timeit(func):
     """Decorator for printing execution time of the function
 
-    Unfortunately well-known timeit module/function cannot measure the execution time
-    of a function with arguments
+    Unfortunately well-known timeit module/function cannot measure
+    the execution time of a function with arguments
     """
 
     @wraps(func)
@@ -45,7 +45,8 @@ def get_tarballs_list(size):
         raise Exception('Unexpected response {}'.format(response))
 
     doc = html.fromstring(response.text)
-    return [x.attrib['href'] for x in doc.xpath('.//a[text()="Gzipped source tarball"]')][:size]
+    return [x.attrib['href'] for x in doc.xpath(
+        './/a[text()="Gzipped source tarball"]')][:size]
 
 
 def print_progress(prog_dict):
@@ -55,8 +56,9 @@ def print_progress(prog_dict):
 
     """
 
-    msg = ', '.join(['{:>20}: {:<8}'.format(file_name, round(file_size / 1048576, 3))
-                     for file_name, file_size in prog_dict.items()])
+    msg = ', '.join(['{:>20}: {:<8}'.format(
+        file_name, round(file_size / 1048576, 3))
+        for file_name, file_size in prog_dict.items()])
     sys.stdout.write('\rDownloaded (MiB): {}'.format(msg))
     sys.stdout.flush()
 
@@ -88,7 +90,8 @@ def aiohttp_download(urls, chunk_size):
 
     async def main(loop):
         async with aiohttp.ClientSession(loop=loop) as session:
-            await asyncio.gather(*[aiohttp_download(session, url) for url in urls])
+            await asyncio.gather(
+                *[aiohttp_download(session, url) for url in urls])
 
     prog_dict = defaultdict(float)
     loop = asyncio.get_event_loop()
